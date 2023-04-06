@@ -61,6 +61,10 @@ public:
 	{
 		come_back_time_ = cb_time;
 	}
+	int GetMoneyCount() const
+	{
+		return money_count;
+	}
 private:
 
 	int money_count;

@@ -9,6 +9,9 @@
 #include <WinUser.h>
 #include "ExplosionObject.h"
 #include "TextObject.h"
+#include "PlayerPower.h"
+#include "Geometric.h"
+#include "BossObject.h"
 
 BaseObject g_background;
 TTF_Font* font_time = NULL;
@@ -124,7 +127,7 @@ int main(int argc, char* argv[])
     if (InitData() == false) return -1;
     if (LoadBackground() == false) return -1;
     GameMap game_map;
-    char gm[] = "map//map01.dat";
+    char gm[] = "map//map.dat";
     game_map.LoadMap(gm);
     game_map.LoadTiles(g_screen);
 
@@ -133,8 +136,23 @@ int main(int argc, char* argv[])
     p_player.set_clips();
 
 
+    PlayerPower player_power;
+    player_power.Init(g_screen);
+
+
+    PlayerMoney player_money;
+    player_money.Init(g_screen);
+    player_money.SetPos(SCREEN_WIDTH * 0.5 - 300, 8);
+
     std::vector<ThreatsObject*> threats_list = MakeThreatList();
 
+    //Boss Threat
+    BossObject bossObject;
+    bool ret = bossObject.LoadImg("img//boss_object.png", g_screen);
+    bossObject.set_clips();
+    int xPosBoss = MAX_MAP_X*TILE_SIZE - SCREEN_WIDTH*0.6;
+    bossObject.set_x_pos(xPosBoss);
+    bossObject.set_y_pos(10);
 
 
     ExplosionObject exp_threat;
@@ -154,7 +172,12 @@ int main(int argc, char* argv[])
     TextObject time_game;
     time_game.SetColor(TextObject::WHITE_TEXT);
 
+    TextObject mark_game;
+    mark_game.SetColor(TextObject::WHITE_TEXT);
+    UINT mark_value = 0;
 
+    TextObject money_game;
+    money_game.SetColor(TextObject::WHITE_TEXT);
 
     bool is_quit = false;
     while (!is_quit)
@@ -181,6 +204,21 @@ int main(int argc, char* argv[])
         game_map.DrawMap(g_screen);
 
 
+        //DrawGeometric
+        GeometricFormat rectangle_size(0, 0, SCREEN_WIDTH, 40);
+        ColorData color_data(36,36,36);
+        Geometric::RenderRectangle(rectangle_size, color_data, g_screen);
+
+        GeometricFormat outLineSize(1, 1, SCREEN_WIDTH - 1, 38);
+        ColorData color_data2(255, 255, 255);
+
+        Geometric::RenderOutline(outLineSize, color_data2, g_screen);
+
+
+
+
+        player_power.Show(g_screen);
+        player_money.Show(g_screen);
         for (int i = 0; i < threats_list.size(); i++)
         {
             ThreatsObject* p_threat = threats_list.at(i);
@@ -234,6 +272,8 @@ int main(int argc, char* argv[])
                         p_player.SetRect(0, 0);
                         p_player.set_comeback_time(60);
                         SDL_Delay(1000);
+                        player_power.Decrease();
+                        player_power.Render(g_screen);
                         continue;
                     }
                     else
@@ -279,6 +319,7 @@ int main(int argc, char* argv[])
                         
                         if (bCol)
                         {
+                            mark_value++;
                             for (int ex = 0; ex < NUM_FRAME_EXP; ++ex)
                             {
                                 int x_pos = p_bullet->GetRect().x - frame_exp_width * 0.5;
@@ -324,6 +365,33 @@ int main(int argc, char* argv[])
             time_game.RenderText(g_screen, SCREEN_WIDTH - 200, 15);
 
         }
+
+
+
+        std::string val_str_mark = std::to_string(mark_value);
+        std::string strMark("Mark: ");
+        strMark += val_str_mark;
+
+        mark_game.SetText(strMark);
+        mark_game.LoadFromRenderText(font_time, g_screen);
+        mark_game.RenderText(g_screen, SCREEN_WIDTH * 0.5 - 50, 15);
+
+        int money_count = p_player.GetMoneyCount();
+        std::string money_str = std::to_string(money_count);
+        money_game.SetText(money_str);
+        money_game.LoadFromRenderText(font_time, g_screen);
+        money_game.RenderText(g_screen, SCREEN_WIDTH * 0.5 - 250, 15);
+
+        //Show Boss
+        int val = MAX_MAP_X * TILE_SIZE - (map_data.start_x_ + p_player.GetRect().x);
+        if (val <= SCREEN_WIDTH)
+        {
+            bossObject.SetMapXY(map_data.start_x_, map_data.start_y_);
+            bossObject.DoPlayer(map_data);
+            bossObject.MakeBullet(g_screen, SCREEN_WIDTH, SCREEN_HEIGHT);
+            bossObject.Show(g_screen);
+        }
+        
         SDL_RenderPresent(g_screen);
 
         int real_imp_time = fps_timer.get_ticks();
