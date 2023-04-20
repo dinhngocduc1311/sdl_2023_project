@@ -56,45 +56,13 @@ void MainPlayerObject::set_clips()
 {
 	if (width_frame_ > 0 && height_frame_ > 0)
 	{
-		frame_clip_[0].x = 0;
-		frame_clip_[0].y = 0;
-		frame_clip_[0].w = width_frame_;
-		frame_clip_[0].h = height_frame_;
-
-		frame_clip_[1].x = width_frame_;
-		frame_clip_[1].y = 0;
-		frame_clip_[1].w = width_frame_;
-		frame_clip_[1].h = height_frame_;
-
-		frame_clip_[2].x = 2*width_frame_;
-		frame_clip_[2].y = 0;
-		frame_clip_[2].w = width_frame_;
-		frame_clip_[2].h = height_frame_;
-
-		frame_clip_[3].x = 3 * width_frame_;
-		frame_clip_[3].y = 0;
-		frame_clip_[3].w = width_frame_;
-		frame_clip_[3].h = height_frame_;
-
-		frame_clip_[4].x = 4 * width_frame_;
-		frame_clip_[4].y = 0;
-		frame_clip_[4].w = width_frame_;
-		frame_clip_[4].h = height_frame_;
-
-		frame_clip_[5].x = 5 * width_frame_;
-		frame_clip_[5].y = 0;
-		frame_clip_[5].w = width_frame_;
-		frame_clip_[5].h = height_frame_;
-
-		frame_clip_[6].x = 6 * width_frame_;
-		frame_clip_[6].y = 0;
-		frame_clip_[6].w = width_frame_;
-		frame_clip_[6].h = height_frame_;
-
-		frame_clip_[7].x = 7 * width_frame_;
-		frame_clip_[7].y = 0;
-		frame_clip_[7].w = width_frame_;
-		frame_clip_[7].h = height_frame_;
+		for (int i = 0; i < PLAYER_NUM_FRAME; ++i)
+		{
+			frame_clip_[i].x = width_frame_ * i;
+			frame_clip_[i].y = 0;
+			frame_clip_[i].w = width_frame_;
+			frame_clip_[i].h = height_frame_;
+		}
 
 	}
 }
@@ -123,7 +91,7 @@ void MainPlayerObject::Show(SDL_Renderer* des)
 	
 }
 
-void MainPlayerObject::HandleInputAction(SDL_Event events, SDL_Renderer* screen)
+void MainPlayerObject::HandleInputAction(SDL_Event events, SDL_Renderer* screen, Mix_Chunk* bullet_sound[2])
 {
 	if (events.type == SDL_KEYDOWN)
 	{
@@ -177,7 +145,8 @@ void MainPlayerObject::HandleInputAction(SDL_Event events, SDL_Renderer* screen)
 			BulletObject* p_bullet = new BulletObject();
 			p_bullet->set_bullet_type(BulletObject::SPHERE_BULLET);
 			p_bullet->LoadImgBullet(screen);
-			
+			Mix_PlayChannel(-1, bullet_sound[0], 0);
+
 			if (status_ == WALK_LEFT)
 			{
 				p_bullet->set_bullet_dir(BulletObject::DIR_LEFT);
@@ -242,7 +211,7 @@ void MainPlayerObject::RemoveBullet(const int& idx)
 		}
 	}
 }
-void MainPlayerObject::DoPlayer(Map& map_data)
+void MainPlayerObject::DoPlayer(Map& map_data, Mix_Chunk* sound_player[2])
 {
 	if (come_back_time_ == 0)
 	{
@@ -266,7 +235,11 @@ void MainPlayerObject::DoPlayer(Map& map_data)
 
 		if (input_type_.jump_ == 1)
 		{
-			if (on_ground_ == true) y_val_ = -PLAYER_JUMP_VAL;
+			if (on_ground_ == true)
+			{
+				y_val_ = -PLAYER_JUMP_VAL;
+				Mix_PlayChannel(-1, sound_player[1], 0);
+			}
 			on_ground_ = false;
 			input_type_.jump_ = 0;
 		}
@@ -291,6 +264,7 @@ void MainPlayerObject::DoPlayer(Map& map_data)
 			y_pos_ = 0;
 			x_val_ = 0;
 			y_val_ = 0;
+			Mix_PlayChannel(-1, sound_player[1], 0);
 		}
 	}
 }
@@ -337,7 +311,7 @@ void MainPlayerObject::CheckToMap(Map& map_data)
 
 	if (x1 >= 0 && x2 < MAX_MAP_X && y1 >= 0 && y2 < MAX_MAP_Y)
 	{
-		if (x_val_ > 0) // main object is moving to right
+		if (x_val_ > 0) // main player object is moving to right
 		{
 			int val1 = map_data.tile[y1][x2];
 			int val2 = map_data.tile[y2][x2];
@@ -347,6 +321,12 @@ void MainPlayerObject::CheckToMap(Map& map_data)
 				map_data.tile[y1][x2] = 0;
 				map_data.tile[y2][x2] = 0;
 				IncreaseMoney();
+			}
+			else if (val1 == BOSS_EGG || val2 == BOSS_EGG)
+			{
+				map_data.tile[y1][x2] = 0;
+				map_data.tile[y2][x2] = 0;
+				IncreaseEgg();
 			}
 			else
 			{
@@ -368,6 +348,12 @@ void MainPlayerObject::CheckToMap(Map& map_data)
 				map_data.tile[y1][x1] = 0;
 				map_data.tile[y2][x1] = 0;
 				IncreaseMoney();
+			}
+			else if (val1 == BOSS_EGG || val2 == BOSS_EGG)
+			{
+				map_data.tile[y1][x1] = 0;
+				map_data.tile[y2][x1] = 0;
+				IncreaseEgg();
 			}
 			else
 			{
@@ -403,6 +389,12 @@ void MainPlayerObject::CheckToMap(Map& map_data)
 				map_data.tile[y2][x2] = 0;
 				IncreaseMoney();
 			}
+			else if (val1 == BOSS_EGG || val2 == BOSS_EGG)
+			{
+				map_data.tile[y2][x1] = 0;
+				map_data.tile[y2][x2] = 0;
+				IncreaseEgg();
+			}
 			else
 			{
 				if (val1 != BLANK_TILE || val2 != BLANK_TILE)
@@ -427,6 +419,12 @@ void MainPlayerObject::CheckToMap(Map& map_data)
 				map_data.tile[y1][x1] = 0;
 				map_data.tile[y1][x2] = 0;
 				IncreaseMoney();
+			}
+			else if (val1 == BOSS_EGG || val2 == BOSS_EGG)
+			{
+				map_data.tile[y1][x1] = 0;
+				map_data.tile[y1][x2] = 0;
+				IncreaseEgg();
 			}
 			else
 			{
@@ -463,7 +461,13 @@ void MainPlayerObject::CheckToMap(Map& map_data)
 void MainPlayerObject::IncreaseMoney()
 {
 	money_count++;
+	
 }
+void MainPlayerObject::IncreaseEgg()
+{
+	egg_count++;
+}
+
 
 void MainPlayerObject::UpdateImagePlayer(SDL_Renderer* des)
 {

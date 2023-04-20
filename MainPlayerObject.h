@@ -12,6 +12,7 @@
 #define MAX_FALL_SPEED 10
 #define PLAYER_SPEED 8
 #define PLAYER_JUMP_VAL 18
+#define PLAYER_NUM_FRAME 8
 
 
 class MainPlayerObject : public BaseObject
@@ -28,9 +29,9 @@ public:
 	};
 	bool LoadImg(std::string path, SDL_Renderer* screen);
 	void Show(SDL_Renderer* des);
-	void HandleInputAction(SDL_Event events, SDL_Renderer* screen);
+	void HandleInputAction(SDL_Event events, SDL_Renderer* screen, Mix_Chunk* bullet_sound[2]);
 	void set_clips();
-	void DoPlayer(Map& map_data);
+	void DoPlayer(Map& map_data, Mix_Chunk* sound_player[2]);
 	void CheckToMap(Map& map_data);
 	void SetMapXY(const int map_x, const int map_y) { map_x_ = map_x; map_y_ = map_y; }
 	void CenterEntityOnMap(Map& map_data);
@@ -49,6 +50,7 @@ public:
 	void HandleBullet(SDL_Renderer* des);
 	void RemoveBullet(const int& idx);
 	void IncreaseMoney();
+	void IncreaseEgg();
 	int get_frame_width() const
 	{
 		return width_frame_;
@@ -65,9 +67,14 @@ public:
 	{
 		return money_count;
 	}
+	int GetEggCount() const
+	{
+		return egg_count;
+	}
 private:
 
 	int money_count;
+	int egg_count;
 	std::vector<BulletObject*> p_bullet_list_;
 	float x_val_, y_val_;
 	float x_pos_, y_pos_;

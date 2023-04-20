@@ -46,4 +46,23 @@ private:
 	int x_pos_;
 	int y_pos_;
 };
+
+class PlayerEgg :public BaseObject
+{
+public:
+	PlayerEgg();
+	~PlayerEgg();
+
+	void Init(SDL_Renderer* screen);
+	void Show(SDL_Renderer* screen);
+	void SetPos(const int& x, const int& y)
+	{
+		x_pos_ = x;
+		y_pos_ = y;
+	}
+private:
+	
+	int x_pos_;
+	int y_pos_;
+};
 #endif

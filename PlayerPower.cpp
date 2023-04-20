@@ -79,3 +79,27 @@ void PlayerMoney::Show(SDL_Renderer* screen)
 	rect_.y = y_pos_;
 	Render(screen);
 }
+
+PlayerEgg::PlayerEgg()
+{
+	x_pos_ = 0;
+	y_pos_ = 0;
+}
+
+PlayerEgg::~PlayerEgg()
+{
+
+}
+
+void PlayerEgg::Init(SDL_Renderer* screen)
+{
+	bool ret = LoadImg("img/egg.png", screen);
+
+}
+
+void PlayerEgg::Show(SDL_Renderer* screen)
+{
+	rect_.x = x_pos_;
+	rect_.y = y_pos_;
+	Render(screen);
+}

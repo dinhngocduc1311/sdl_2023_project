@@ -107,7 +107,7 @@ void BossObject::DoPlayer(Map& g_map)
 
         CheckToMap(g_map);
 
-        //CenterEntityOnMap(g_map);
+        
     }
 
     if (think_time_ > 0)

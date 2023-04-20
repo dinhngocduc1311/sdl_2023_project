@@ -8,14 +8,20 @@
 #include <SDL_image.h>
 #include <SDL_mixer.h>
 #include <SDL_ttf.h>
-
+#include "BaseObject.h"
+#include "TextObject.h"
 
 static SDL_Window* g_window = NULL;
 static SDL_Renderer* g_screen = NULL;
 static SDL_Event g_event;
 
+
+static Mix_Chunk* g_sound_bullet[2];
+static Mix_Chunk* g_sound_exp[2];
+static Mix_Chunk* g_sound[2];
+
 // Screen
-const int FRAME_PER_SECOND = 25; // fps
+const int FRAME_PER_SECOND = 45; // fps
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 640;
 const int SCREEN_BPP = 32;
@@ -35,8 +41,11 @@ const int RENDER_DRAW_COLOR = 0Xff;
 #define MAX_MAP_Y 10
 
 #define STATE_MONEY 4
+#define BOSS_EGG 3
 
-typedef struct Input
+
+
+struct Input
 {
 	int left_, right_, up_, down_;
 	int jump_;
@@ -57,5 +66,12 @@ typedef struct Map
 namespace SDLCommonFunc
 {
 	bool CheckCollision(const SDL_Rect& object1, const SDL_Rect& object2);
+	int ShowMenu(SDL_Renderer* g_screen, TTF_Font* font,
+		const std::string& menu1,
+		const std::string& menu2,
+		const std::string& img_name);
+	int ShowMenuEnd(SDL_Renderer* g_screen, TTF_Font* font,
+		const std::string& menu1,
+		const std::string& img_name);
 }
 #endif
