@@ -1,3 +1,3 @@
 # sdl_2023_project
 
-https://drive.google.com/file/d/1zXQq_4xDfFUDUGoP922j3pX29jsFV3k-/view?fbclid=IwAR3__NM1HbdWMEq704i1AulBTJg7EaF72mLvZpYfXnoxRRvMpe9LZPfretM
+https://drive.google.com/file/d/1zXQq_4xDfFUDUGoP922j3pX29jsFV3k-/view?usp=sharing
