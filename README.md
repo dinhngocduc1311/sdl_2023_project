@@ -20,7 +20,9 @@ Kĩ thuật được sử dụng:
 - C++ và thư viện SDL2.
 - Lập trình hướng đối tượng cơ bản.
 
-Mọi liên hệ góp ý xin vui lòng gửi qua mail: nduclilsant@gmail.com
+Mọi liên hệ góp ý xin vui lòng gửi qua mail: nduclilsant@gmail.com.
+
+
 Xin cảm ơn!
 
 
