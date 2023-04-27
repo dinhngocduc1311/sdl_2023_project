@@ -1,6 +1,6 @@
-#ifndef EXP_H_
+﻿#ifndef EXP_H_
 #define EXP_H_
-
+//Quản lý hiệu ứng vụ nổ
 #include "CommonFunc.h"
 #include "BaseObject.h"
 
@@ -29,11 +29,11 @@ public:
 		return frame_height_;
 	}
 private:
-	int frame_width_;
+	int frame_width_;//kích thước cho 1 frame
 	int frame_height_;
 	
-	unsigned int frame_;
-	SDL_Rect frame_clip_[8];
+	unsigned int frame_;//đang ở frame bao nhiêu
+	SDL_Rect frame_clip_[8];//mảng quản lý frame
 	
 
 };

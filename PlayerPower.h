@@ -1,8 +1,9 @@
-#ifndef PLAYER_POWER_H_
+﻿#ifndef PLAYER_POWER_H_
 #define PLAYER_POWER_H_
-
+//Hiển thị các hình ảnh tĩnh như money,egg ở text và sinh mạng cho nvat chính
 #include "CommonFunc.h"
 #include "BaseObject.h"
+
 
 class PlayerPower : public BaseObject
 {
@@ -18,12 +19,11 @@ public:
 	void Show(SDL_Renderer* screen);
 	void Init(SDL_Renderer* screen);
 	
-	void InitCrease();
-	void Decrease();
+	void Decrease();//hàm giảm mạng xuống
 
 private:
-	int number_;
-	std::vector<int> pos_list_;
+	int number_;//chỉ số bao nhiêu mạng
+	std::vector<int> pos_list_;//vị trí đặt ô hình ảnh mạng 
 
 };
 
@@ -34,8 +34,8 @@ public:
 	PlayerMoney();
 	~PlayerMoney();
 
-	void Init(SDL_Renderer* screen);
-	void Show(SDL_Renderer* screen);
+	void Init(SDL_Renderer* screen);//vị trí ban đầu
+	void Show(SDL_Renderer* screen);//show ảnh
 	void SetPos(const int& x, const int& y)
 	{
 		x_pos_ = x;
@@ -43,7 +43,7 @@ public:
 	}
 private:
 	
-	int x_pos_;
+	int x_pos_;//vị trí đặt ảnh tiền
 	int y_pos_;
 };
 
@@ -62,6 +62,26 @@ public:
 	}
 private:
 	
+	int x_pos_;
+	int y_pos_;
+};
+
+
+class PlayerDiamond :public BaseObject
+{
+public:
+	PlayerDiamond();
+	~PlayerDiamond();
+
+	void Init(SDL_Renderer* screen);
+	void Show(SDL_Renderer* screen);
+	void SetPos(const int& x, const int& y)
+	{
+		x_pos_ = x;
+		y_pos_ = y;
+	}
+private:
+
 	int x_pos_;
 	int y_pos_;
 };

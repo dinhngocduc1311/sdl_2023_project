@@ -1,4 +1,4 @@
-
+﻿
 #include "ThreatsObject.h"
 
 ThreatsObject::ThreatsObject()
@@ -93,11 +93,11 @@ void ThreatsObject::DoPlayer(Map& gMap)
 
 		if (input_type_.left_ == 1)
 		{
-			x_val_ -= THREAT_SPEED;
+			x_val_ -= THREAT_SPEED;//quái di chuyển sang trái
 		}
 		else if (input_type_.right_ == 1)
 		{
-			x_val_ += THREAT_SPEED;
+			x_val_ += THREAT_SPEED;//di chuyển sang phải
 		}
 		CheckToMap(gMap);
 	}
@@ -166,7 +166,7 @@ void ThreatsObject::CheckToMap(Map& map_data)
 		{
 			int val1 = map_data.tile[y1][x2];
 			int val2 = map_data.tile[y2][x2];
-			if ((val1 != BLANK_TILE && val1 != STATE_MONEY && val1 != BOSS_EGG) || (val2 != BLANK_TILE && val2 != STATE_MONEY && val2 != BOSS_EGG))
+			if ((val1 != BLANK_TILE && val1 != STATE_MONEY && val1 != BOSS_EGG && val1 != RED_DIAMOND) || (val2 != BLANK_TILE && val2 != STATE_MONEY && val2 != BOSS_EGG && val2 != RED_DIAMOND))
 			{
 				x_pos_ = x2 * TILE_SIZE;
 				x_pos_ -= width_frame_ + 1;
@@ -178,7 +178,7 @@ void ThreatsObject::CheckToMap(Map& map_data)
 		{
 			int val1 = map_data.tile[y1][x1];
 			int val2 = map_data.tile[y2][x1];
-			if ((val1 != BLANK_TILE && val1 != STATE_MONEY && val1 != BOSS_EGG)|| (val2 != BLANK_TILE && val2 != STATE_MONEY != val2 != BOSS_EGG))
+			if ((val1 != BLANK_TILE && val1 != STATE_MONEY && val1 != BOSS_EGG && val1 != RED_DIAMOND)|| (val2 != BLANK_TILE && val2 != STATE_MONEY != val2 != BOSS_EGG && val2 != RED_DIAMOND))
 			{
 				x_pos_ = (x1 + 1) * TILE_SIZE;
 				x_val_ = 0;
@@ -203,7 +203,7 @@ void ThreatsObject::CheckToMap(Map& map_data)
 
 			int val1 = map_data.tile[y2][x1];
 			int val2 = map_data.tile[y2][x2];
-			if ((val1 != BLANK_TILE && val1 != STATE_MONEY && val1 != BOSS_EGG) || (val2 != BLANK_TILE && val2 != STATE_MONEY && val2 != BOSS_EGG))
+			if ((val1 != BLANK_TILE && val1 != STATE_MONEY && val1 != BOSS_EGG && val1 != RED_DIAMOND) || (val2 != BLANK_TILE && val2 != STATE_MONEY && val2 != BOSS_EGG && val2 != RED_DIAMOND))
 			{
 				y_pos_ = y2 * TILE_SIZE;
 				y_pos_ -= (height_frame_ + 1);
@@ -218,7 +218,7 @@ void ThreatsObject::CheckToMap(Map& map_data)
 			int val1 = map_data.tile[y1][x1];
 			int val2 = map_data.tile[y1][x2];
 			
-			if ((val1 != BLANK_TILE && val1 != STATE_MONEY && val1 != BOSS_EGG)|| (val2 != BLANK_TILE && val2 != STATE_MONEY && val2 != BOSS_EGG))
+			if ((val1 != BLANK_TILE && val1 != STATE_MONEY && val1 != BOSS_EGG && val1 != RED_DIAMOND)|| (val2 != BLANK_TILE && val2 != STATE_MONEY && val2 != BOSS_EGG && val2 != RED_DIAMOND))
 			{
 				y_pos_ = (y1 + 1) * TILE_SIZE;
 				y_val_ = 0;
@@ -256,22 +256,22 @@ void ThreatsObject::ImpMoveType(SDL_Renderer* screen)
 	}
 	else
 	{
-		if (on_ground_ == true)
+		if (on_ground_ == true)//đang trên mặt đất
 		{
-			if (x_pos_ > animation_b_)
+			if (x_pos_ > animation_b_)//đảo chiều từ phải qua trái
 			{
 				input_type_.left_ = 1;
 				input_type_.right_ = 0;
 				LoadImg("img//threat_left.png", screen);
 			}
-			else if (x_pos_ < animation_a_)
+			else if (x_pos_ < animation_a_)//đảo chiều từ trái qua phải
 			{
 				input_type_.left_ = 0;
 				input_type_.right_ = 1;
 				LoadImg("img//threat_right.png", screen);
 			}
 		}
-		else
+		else//rơi tự do
 		{
 			if (input_type_.left_ == 1)
 			{
@@ -288,42 +288,43 @@ void ThreatsObject::InitBullet(BulletObject* p_bullet, SDL_Renderer* screen)
 		p_bullet->set_bullet_type(BulletObject::LASER_BULLET);
 		bool ret = p_bullet->LoadImgBullet(screen);
 
-		if (ret)
+		if (ret)//load thành công
 		{
-			p_bullet->set_is_move(true);
-			p_bullet->set_bullet_dir(BulletObject::DIR_LEFT);
-			p_bullet->SetRect(rect_.x + 5, y_pos_ + 10);
-			p_bullet->set_x_val(15);
-			bullet_list_.push_back(p_bullet);
+			p_bullet->set_is_move(true);//cho phép di chuyển
+			p_bullet->set_bullet_dir(BulletObject::DIR_LEFT);//hướng sang trái
+			p_bullet->SetRect(rect_.x + 5, y_pos_ + 10);//set vị trí
+			p_bullet->set_x_val(15);//set tốc độ
+			bullet_list_.push_back(p_bullet);//thêm vào băng đạn
 		}
 		
 	}
 }
 
-void ThreatsObject::MakeBullet(SDL_Renderer* screen, const int& x_limit, const int& y_limit)
+void ThreatsObject::MakeBullet(SDL_Renderer* screen, const int& x_limit, const int& y_limit)//kiểm tra đạn
 {
 	for (int i = 0; i < bullet_list_.size(); i++)
 	{
-		BulletObject* p_bullet = bullet_list_.at(i);
+		BulletObject* p_bullet = bullet_list_.at(i);//lấy p_bullet ra
 		if (p_bullet != NULL)
 		{
-			if (p_bullet->get_is_move())
+			if (p_bullet->get_is_move())//đạn đang di chuyển
 			{
+				//khoảng cách đạn đc bắn ra
 				int bullet_distance = rect_.x +width_frame_ - p_bullet->GetRect().x;
-				if (bullet_distance < 300 && bullet_distance > 0)
+				if (bullet_distance < 400 && bullet_distance > 0)
 				{
-					p_bullet->HandleMove(x_limit, y_limit);
-					p_bullet->Render(screen);
+					p_bullet->HandleMove(x_limit, y_limit);//đạn đi hết màn hình
+					p_bullet->Render(screen);//show đạn ra
 				}
 				else
 				{
-					p_bullet->set_is_move(false);
+					p_bullet->set_is_move(false);//đạn biến mất
 				}
 			}
 			else
 			{
-				p_bullet->set_is_move(true);
-				p_bullet->SetRect(rect_.x + 5, y_pos_ + 10);
+				p_bullet->set_is_move(true);//reset đạn lại từ đầu
+				p_bullet->SetRect(rect_.x + 5, y_pos_ + 10);//gán lại vị trí
 
 			}
 		}

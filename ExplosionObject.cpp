@@ -1,4 +1,4 @@
-
+﻿
 #include "ExplosionObject.h"
 
 ExplosionObject::ExplosionObject()
@@ -6,14 +6,14 @@ ExplosionObject::ExplosionObject()
 	frame_height_ = 0;
 	frame_width_ = 0;
 	frame_ = 0;
-}
+}//giá trị khơi tạo
 
 ExplosionObject::~ExplosionObject()
 {
 
-}
+}//hàm hủy
 
-bool ExplosionObject::LoadImg(std::string path, SDL_Renderer* screen)
+bool ExplosionObject::LoadImg(std::string path, SDL_Renderer* screen)//giống mainplayerobject
 {
 	bool ret = BaseObject::LoadImg(path, screen);
 
@@ -25,54 +25,21 @@ bool ExplosionObject::LoadImg(std::string path, SDL_Renderer* screen)
 	return ret;
 }
 
-void ExplosionObject::set_clips()
+void ExplosionObject::set_clips()//giống mainplayerobject
 {
 	if (frame_width_ > 0 && frame_height_ > 0)
 	{
-		frame_clip_[0].x = 0;
-		frame_clip_[0].y = 0;
-		frame_clip_[0].w = frame_width_;
-		frame_clip_[0].h = frame_height_;
-
-		frame_clip_[1].x = frame_width_;
-		frame_clip_[1].y = 0;
-		frame_clip_[1].w = frame_width_;
-		frame_clip_[1].h = frame_height_;
-
-		frame_clip_[2].x = 2 * frame_width_;
-		frame_clip_[2].y = 0;
-		frame_clip_[2].w = frame_width_;
-		frame_clip_[2].h = frame_height_;
-
-		frame_clip_[3].x = 3 * frame_width_;
-		frame_clip_[3].y = 0;
-		frame_clip_[3].w = frame_width_;
-		frame_clip_[3].h = frame_height_;
-
-		frame_clip_[4].x = 4 * frame_width_;
-		frame_clip_[4].y = 0;
-		frame_clip_[4].w = frame_width_;
-		frame_clip_[4].h = frame_height_;
-
-		frame_clip_[5].x = 5 * frame_width_;
-		frame_clip_[5].y = 0;
-		frame_clip_[5].w = frame_width_;
-		frame_clip_[5].h = frame_height_;
-
-		frame_clip_[6].x = 6 * frame_width_;
-		frame_clip_[6].y = 0;
-		frame_clip_[6].w = frame_width_;
-		frame_clip_[6].h = frame_height_;
-
-		frame_clip_[7].x = 7 * frame_width_;
-		frame_clip_[7].y = 0;
-		frame_clip_[7].w = frame_width_;
-		frame_clip_[7].h = frame_height_;
-
+		for (int i = 0; i < NUM_FRAME_EXP; ++i)
+		{
+			frame_clip_[i].x = frame_width_ * i;
+			frame_clip_[i].y = 0;
+			frame_clip_[i].w = frame_width_;
+			frame_clip_[i].h = frame_height_;
+		}
 	}
 }
 
-void ExplosionObject::Show(SDL_Renderer* screen)
+void ExplosionObject::Show(SDL_Renderer* screen)//giống mainplayerobject
 {
 	SDL_Rect* current_clip = &frame_clip_[frame_];
 	SDL_Rect render_quad = { rect_.x, rect_.y, frame_width_, frame_height_ };

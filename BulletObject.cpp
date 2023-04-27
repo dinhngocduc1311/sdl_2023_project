@@ -1,4 +1,4 @@
-
+﻿
 #include "BulletObject.h"
 
 BulletObject::BulletObject()
@@ -7,7 +7,7 @@ BulletObject::BulletObject()
 	y_val_ = 0;
 	is_move_ = false;
 	bullet_type_ = SPHERE_BULLET;
-}
+}// giá trị khởi tạo
 
 
 BulletObject::~BulletObject()
@@ -23,9 +23,13 @@ bool BulletObject::LoadImgBullet(SDL_Renderer* des)
 	{
 		ret = LoadImg("img//laser_bullet.png", des);
 	}
-	else
+	else if (bullet_type_ == SPHERE_BULLET)
 	{
 		ret = LoadImg("img//sphere_bullet.png", des);
+	}
+	else if (bullet_type_ == RED_BULLET)
+	{
+		ret = LoadImg("img//red_bullet.png", des);
 	}
 	return ret;
 }
@@ -33,8 +37,8 @@ void BulletObject::HandleMove(const int& x_border, const int& y_border)
 {
 	if (bullet_dir_ == DIR_RIGHT)
 	{
-		rect_.x += x_val_;
-		if (rect_.x > x_border)
+		rect_.x += x_val_;//bắn đạn từ trái qua phải
+		if (rect_.x > x_border)//đạn vượt quá màn hình
 		{
 			is_move_ = false;
 		}
@@ -43,66 +47,6 @@ void BulletObject::HandleMove(const int& x_border, const int& y_border)
 	{
 		rect_.x -= x_val_;
 		if (rect_.x < 0)
-		{
-			is_move_ = false;
-		}
-	}
-	else if (bullet_dir_ == DIR_UP)
-	{
-		rect_.y -= y_val_;
-		if (rect_.y < 0)
-		{
-			is_move_ = false;
-		}
-	}
-	else if (bullet_dir_ == DIR_UP_LEFT)
-	{
-		rect_.x -= x_val_;
-		if (rect_.x < 0)
-		{
-			is_move_ = false;
-		}
-		rect_.y -= y_val_;
-		if (rect_.y < 0)
-		{
-			is_move_ = false;
-		}
-	}
-	else if (bullet_dir_ == DIR_UP_RIGHT)
-	{
-		rect_.x += x_val_;
-		if (rect_.x > x_border)
-		{
-			is_move_ = false;
-		}
-		rect_.y -= y_val_;
-		if (rect_.y < 0)
-		{
-			is_move_ = false;
-		}
-	}
-	else if (bullet_dir_ == DIR_DOWN_LEFT)
-	{
-		rect_.x -= x_val_;
-		if (rect_.x < 0)
-		{
-			is_move_ = false;
-		}
-		rect_.y += y_val_;
-		if (rect_.y > y_border)
-		{
-			is_move_ = false;
-		}
-	}
-	else if (bullet_dir_ == DIR_DOWN_RIGHT)
-	{
-		rect_.x += x_val_;
-		if (rect_.x > x_border)
-		{
-			is_move_ = false;
-		}
-		rect_.y += y_val_;
-		if (rect_.y > y_border)
 		{
 			is_move_ = false;
 		}
