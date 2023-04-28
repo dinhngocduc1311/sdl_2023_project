@@ -7,7 +7,7 @@ Thông tin sinh viên:
 
 Giới thiệu chung:
 - Bài tập lớn này được lấy cảm hứng từ game bắn súng, trong đó nhân vật chính sẽ dùng súng để tiêu diệt các mối hiểm họa, thu thập các vật phẩm và đi đến đích.
-- Người chơi sẽ dành chiến thắng khi nhặt được 3 quả trứng và 20 vàng trên bản đồ, vàng và trứng hay kim cương sẽ luôn được cộng dồn và hiện ra màn hình chính.
+- Người chơi sẽ dành chiến thắng khi nhặt được 3 quả trứng trên bản đồ, trứng, vàng hay kim cương sẽ luôn được cộng dồn và hiện ra màn hình chính.
 - Người chơi sẽ có 270s đếm ngược với 3 mạng, khi hết 3 mạng sẽ có thể chơi lại và thời gian luôn giảm.
 - Nếu thời gian giảm về 0 thì thua cuộc. 
 - Các vật phẩm kim cương trong game giúp người chơi có thể đổi đạn cho súng.   
