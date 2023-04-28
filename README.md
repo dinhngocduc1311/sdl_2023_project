@@ -20,6 +20,10 @@ Kĩ thuật được sử dụng:
 - C++ và thư viện SDL2.
 - Lập trình hướng đối tượng cơ bản.
 
+Tham khảo:
+- website Phattrienphanmem123az.com
+- Lazyfoo
+
 Mọi liên hệ góp ý xin vui lòng gửi qua mail: nduclilsant@gmail.com.
 
 
