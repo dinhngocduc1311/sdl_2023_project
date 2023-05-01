@@ -255,9 +255,11 @@ again:
     egg_game.SetColor(TextObject::WHITE_TEXT);
 
 
+    //diamond text
     TextObject diamond_game;
     diamond_game.SetColor(TextObject::WHITE_TEXT);
 
+    //khi chương trình chạy
     while (!is_quit)
     {
         fps_timer.start();//bắt đầu thời gian
@@ -280,7 +282,7 @@ again:
         p_player.Show(g_screen);
 
 
-
+        //set bản đồ 
         game_map.SetMap(map_data);//Bản đồ cập nhật vị trí mới
         game_map.DrawMap(g_screen);//Vẽ lại
 
@@ -342,12 +344,7 @@ again:
                     int height_exp_frame = exp_main.get_frame_height();
                     for (int ex = 0; ex < 4; ex++)
                     {
-                        int x_pos = (p_player.GetRect().x + p_player.get_frame_width() * 0.5) - width_exp_frame * 0.5;
-                        int y_pos = (p_player.GetRect().y + p_player.get_frame_height() * 0.5) - height_exp_frame * 0.5;
-
-                        exp_main.set_frame(ex);
-                        exp_main.SetRect(x_pos, y_pos);
-                        exp_main.Show(g_screen);
+                        
                         SDL_RenderPresent(g_screen);
 
                     }
@@ -358,11 +355,10 @@ again:
                     num_die++;
                     if (num_die < 3)
                     {
-                        p_player.SetRect(0, 0);//set lại rect cho nvat main ở nơi xuất phát
-                        p_player.set_comeback_time(60);//set lại thời gian nvat quay lại 
+                       ;//set lại rect cho nvat main ở nơi xuất phát
+                        //set lại thời gian nvat quay lại 
                         SDL_Delay(1000);//tgian delay 1s
-                        player_power.Decrease();//giảm mạng
-                        player_power.Render(g_screen);//load lại mạng 
+                        //load lại mạng 
                         continue;
                     }
                     else
@@ -405,7 +401,7 @@ again:
                         tRect.x = obj_threat->GetRect().x;
                         tRect.y = obj_threat->GetRect().y;
                         tRect.w = obj_threat->get_width_frame();//vì sử dụng khung hình frame để load hiệu ứng động nên chỉ lấy 1 frame
-                        tRect.h = obj_threat->get_height_frame();//viên đạn chưa chạm tới ảnh nvat đã có hiệu ứng
+                        tRect.h = obj_threat->get_height_frame();//nếu ko viên đạn chưa chạm tới ảnh nvat đã có hiệu ứng
 
                         SDL_Rect bRect = p_bullet->GetRect();//lấy rect bullet
 
@@ -478,13 +474,14 @@ again:
         money_game.LoadFromRenderText(font_time, g_screen);
         money_game.RenderText(g_screen, SCREEN_WIDTH * 0.5 - 250, 15);
 
+        //show text egg
         int egg_count = p_player.GetEggCount();
         std::string egg_str = std::to_string(egg_count);
         egg_game.SetText(egg_str);
         egg_game.LoadFromRenderText(font_time, g_screen);
         egg_game.RenderText(g_screen, SCREEN_WIDTH * 0.5 - 50, 15);
 
-
+        //show text diamond
         int diamond_count = p_player.GetDiaCount();
         std::string dia_str = std::to_string(diamond_count);
         diamond_game.SetText(dia_str);

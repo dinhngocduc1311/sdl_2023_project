@@ -28,8 +28,8 @@ public:
 	// path là đường dẫn chứa ảnh, screen là biến màn hình
 	// virtual là đề dùng luôn cho MainPlayerObject
 	
-	void Render(SDL_Renderer* des, const SDL_Rect* clip = NULL);
-	void Free();
+	void Render(SDL_Renderer* des, const SDL_Rect* clip = NULL);// đẩy toàn bộ thông số của p_object_ lên des với kích thước, vị trí trong renderquad
+	void Free();//giải phóng
 
 protected:
 	SDL_Texture* p_object_; // biến lưu trữ các hình ảnh

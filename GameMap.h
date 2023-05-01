@@ -1,7 +1,7 @@
 ﻿
 #ifndef GAME_MAP_H
 #define GAME_MAP_H
-
+//load tile map lên màn hình
 #include "CommonFunc.h"
 #include "BaseObject.h"
 

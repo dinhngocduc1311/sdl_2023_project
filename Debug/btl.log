@@ -1,0 +1,24 @@
+﻿  main.cpp
+D:\code\btl\CommonFunc.h(54,2): warning C4091: 'typedef ': ignored on left of 'Input' when no variable is declared
+D:\code\btl\CommonFunc.h(65,2): warning C4091: 'typedef ': ignored on left of 'Map' when no variable is declared
+D:\code\btl\Geometric.h(23,2): warning C4091: 'typedef ': ignored on left of 'GeometricFormat' when no variable is declared
+D:\code\btl\Geometric.h(38,2): warning C4091: 'typedef ': ignored on left of 'ColorData' when no variable is declared
+D:\code\btl\main.cpp(125,37): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+D:\code\btl\main.cpp(128,22): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+D:\code\btl\main.cpp(129,22): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+D:\code\btl\main.cpp(145,37): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+D:\code\btl\main.cpp(205,44): warning C4244: 'argument': conversion from 'double' to 'const int', possible loss of data
+D:\code\btl\main.cpp(210,42): warning C4244: 'argument': conversion from 'double' to 'const int', possible loss of data
+D:\code\btl\main.cpp(214,46): warning C4244: 'argument': conversion from 'double' to 'const int', possible loss of data
+D:\code\btl\main.cpp(308,27): warning C4018: '<': signed/unsigned mismatch
+D:\code\btl\main.cpp(325,35): warning C4018: '<': signed/unsigned mismatch
+D:\code\btl\main.cpp(390,27): warning C4018: '<': signed/unsigned mismatch
+D:\code\btl\main.cpp(395,35): warning C4018: '<': signed/unsigned mismatch
+D:\code\btl\main.cpp(415,43): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\code\btl\main.cpp(416,43): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\code\btl\main.cpp(467,59): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+D:\code\btl\main.cpp(475,60): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+D:\code\btl\main.cpp(482,58): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+D:\code\btl\main.cpp(489,62): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+D:\code\btl\main.cpp(518,27): warning C4018: '<': signed/unsigned mismatch
+  btl.vcxproj -> D:\code\btl\Debug\btl.exe

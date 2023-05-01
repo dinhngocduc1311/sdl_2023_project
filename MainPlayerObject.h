@@ -34,7 +34,7 @@ public:
 	void DoPlayer(Map& map_data, Mix_Chunk* sound_player[2]); // cộng trừ 1 lượng cho nhân vật di chuyển
 	void CheckToMap(Map& map_data); // kiểm tra xem nhân vật với map va chạm nhau
 	void SetMapXY(const int map_x, const int map_y) { map_x_ = map_x; map_y_ = map_y; }
-	//
+	
 	void CenterEntityOnMap(Map& map_data);// thông số của map khi di chuyển nhân vật
 	void UpdateImagePlayer(SDL_Renderer* des);// hàm xử lí ảnh dựa trên sự kiện 
 	SDL_Rect GetRectFrame();//hàm lấy rect frame cho nvat game
@@ -48,7 +48,7 @@ public:
 	{
 		return p_bullet_list_;
 	}
-	void HandleBullet(SDL_Renderer* des);
+	void HandleBullet(SDL_Renderer* des);//xử lí đạn bắn ra
 	void RemoveBullet(const int& idx);//remove đạn thứ bao nhiêu
 	void IncreaseMoney();
 	void IncreaseEgg();
@@ -89,7 +89,7 @@ private:
 	SDL_Rect frame_clip_[8]; // lưu các frame
 	Input input_type_; // biến lưu trạng thái di chuyển của nhân vật
 	int frame_; // lưu chỉ số frame
-	int status_; // lưu trạng thái status 2 kiểu di chuyển phải/trái
+	int status_; // lưu trạng thái status 2 kiểu di chuyển phải/trái để set ảnh tương ứng
 	bool on_ground_; // kiểm tra trạng thái trên mặt đất
 
 	int map_x_; // lưu vị trí bản đồ

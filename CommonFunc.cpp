@@ -7,7 +7,7 @@ int SDLCommonFunc::ShowMenu(SDL_Renderer* g_screen, TTF_Font* font,
     const std::string& menu2,
     const std::string& img_name)
 {
-    char* ch1 = (char*)menu1.c_str();
+    char* ch1 = (char*)menu1.c_str();//ép kiểu sang xâu kí tự
     char* ch2 = (char*)menu2.c_str();
     char* img_file = (char*)img_name.c_str();
 
@@ -18,12 +18,12 @@ int SDLCommonFunc::ShowMenu(SDL_Renderer* g_screen, TTF_Font* font,
     int x = 0;//tọa độ con chuột
     int y = 0;
     const int kMenuNum = 2;//biến số lượng item cho menu
-    char* labels[kMenuNum];
+    char* labels[kMenuNum];//tập chữ cái 
 
-    labels[0] = new char[size1 + 1];
+    labels[0] = new char[size1 + 1];//đưa vào mảng
     labels[1] = new char[size2 + 1];
 
-    strcpy_s(labels[0], size1 + 1, ch1);
+    strcpy_s(labels[0], size1 + 1, ch1);//copy ch1 vào label
     strcpy_s(labels[1], size2 + 1, ch2);
 
     SDL_Texture* menu[kMenuNum];
@@ -32,10 +32,10 @@ int SDLCommonFunc::ShowMenu(SDL_Renderer* g_screen, TTF_Font* font,
 
     //tạo text cho menu 
     TextObject text_object[kMenuNum];
-    //khởi tạo ban đầu cho text : Play Game
+    //khởi tạo ban đầu cho text : Play
     text_object[0].SetText(labels[0]);
     text_object[0].SetColor(color[0].r, color[0].g, color[0].b);//khởi tạo màu ban đầu
-    text_object[0].LoadFromRenderText(font, g_screen);
+    text_object[0].LoadFromRenderText(font, g_screen);//in lên
     //khởi tạo ban đầu cho text : Exit
     text_object[1].SetText(labels[1]);
     text_object[1].SetColor(color[0].r, color[0].g, color[0].b);
@@ -54,14 +54,14 @@ int SDLCommonFunc::ShowMenu(SDL_Renderer* g_screen, TTF_Font* font,
     SDL_Event event;//lấy event khi xử lí chuột
     while (true)
     {
-        time = SDL_GetTicks();
+        time = SDL_GetTicks();//thời gian hiện tại
         while (SDL_PollEvent(&event))//vòng lặp sự kiện
         {
             switch (event.type)//các sự kiện 
             {
-            case SDL_QUIT://tắt chương trình 
+            case SDL_QUIT://tắt chương trình dấu x trên màn hình 
                 text_object[0].Free();
-                text_object[1].Free();
+                text_object[1].Free();//giải phóng hết
                 gBackground.Free();
                 return 1;//trả ra giá trị exit để hàm main check
             case SDL_MOUSEMOTION://con chuột di chuyển trên màn hình
@@ -74,20 +74,20 @@ int SDLCommonFunc::ShowMenu(SDL_Renderer* g_screen, TTF_Font* font,
                     {
                         if (!selected[i])//nếu selected==false
                         {
-                            selected[i] = 1;//được focus
+                            selected[i] = 1;//được focus vào
                             text_object[i].SetText(labels[i]);//set lại text
-                            text_object[i].SetColor(color[1].r, color[1].g, color[1].b);//đổi màu đi
-                            text_object[i].LoadFromRenderText(font, g_screen);
+                            text_object[i].SetColor(color[1].r, color[1].g, color[1].b);//đổi màu đỏ
+                            text_object[i].LoadFromRenderText(font, g_screen);//in ảnh
                         }
                     }
                     else//không nằm trong vùng
                     {
-                        if (selected[i])
+                        if (selected[i])//đang màu đỏ
                         {
                             selected[i] = 0;
                             text_object[i].Free();//giải phóng
                             text_object[i].SetText(labels[i]);
-                            text_object[i].SetColor(color[0].r, color[0].g, color[0].b);
+                            text_object[i].SetColor(color[0].r, color[0].g, color[0].b);//chuyển lại thành màu trắng
                             text_object[i].LoadFromRenderText(font, g_screen);
                         }
                     }
@@ -103,7 +103,7 @@ int SDLCommonFunc::ShowMenu(SDL_Renderer* g_screen, TTF_Font* font,
                         y >= pos[i].y && y <= pos[i].y + pos[i].h)//check xem có nằm trong vùng của item không
                     {
                         text_object[0].Free();
-                        text_object[1].Free();
+                        text_object[1].Free();//giải phóng
                         gBackground.Free();
                         return i;//trả về giá trị i khi bấm vào item i 
                     }
@@ -126,14 +126,14 @@ int SDLCommonFunc::ShowMenu(SDL_Renderer* g_screen, TTF_Font* font,
         for (int i = 0; i < kMenuNum; ++i)
         {
             text_object[i].RenderText(g_screen, pos[i].x, pos[i].y);
-            pos[i].w = text_object[i].GetWidth();
+            pos[i].w = text_object[i].GetWidth();//set vị trí
             pos[i].h = text_object[i].GetHeight();
         }
 
 
-        SDL_RenderPresent(g_screen);
+        SDL_RenderPresent(g_screen);//cập nhật lại lên màn hình
         if (1000 / 30 > (SDL_GetTicks() - time))
-            SDL_Delay(1000 / 30 - (SDL_GetTicks() - time));
+            SDL_Delay(1000 / 30 - (SDL_GetTicks() - time));//delay để chạy mượt hơn
     }
 
     return 0;

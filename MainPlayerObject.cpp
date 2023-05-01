@@ -310,7 +310,9 @@ void MainPlayerObject::CheckToMap(Map& map_data)
 	int x2 = 0; // giới hạn kiểm tra từ x1 đến x2
 	int y1 = 0;
 	int y2 = 0;
-
+	
+	
+	
 	//Check chiều ngang 
 	int height_min = height_frame_ < TILE_SIZE ? height_frame_ : TILE_SIZE;
     
@@ -320,7 +322,7 @@ void MainPlayerObject::CheckToMap(Map& map_data)
 	y1 = (y_pos_) / TILE_SIZE;
 	y2 = (y_pos_ + height_min - 1) / TILE_SIZE;
 
-
+	
 	if (x1 >= 0 && x2 < MAX_MAP_X && y1 >= 0 && y2 < MAX_MAP_Y)
 	{// x1,y1 có nằm trong bản đồ không
 		if (x_val_ > 0) // di chuyển về bên phải
@@ -333,18 +335,21 @@ void MainPlayerObject::CheckToMap(Map& map_data)
 				map_data.tile[y1][x2] = 0;
 				map_data.tile[y2][x2] = 0;//xóa vàng đi thay bằng ô trống
 				IncreaseMoney();//cộng dồn 1 vàng
+				
 			}
 			else if (val1 == BOSS_EGG || val2 == BOSS_EGG)//check va chạm của nvat chính và trứng rồng
 			{
 				map_data.tile[y1][x2] = 0;
 				map_data.tile[y2][x2] = 0;//xóa trứng đi thay bằng ô trống
 				IncreaseEgg();//cộng dồn 1 trứng
+				
 			}
 			else if (val1 == RED_DIAMOND || val2 == RED_DIAMOND)//check va chạm của nvat chính và kcuong đỏ
 			{
 				map_data.tile[y1][x2] = 0;
 				map_data.tile[y2][x2] = 0;//xóa đi thay bằng ô trống
 				IncreaseRedDiamond();//cộng dồn 1
+			
 			}
 			else
 			{
@@ -353,6 +358,7 @@ void MainPlayerObject::CheckToMap(Map& map_data)
 					x_pos_ = x2 * TILE_SIZE; // dừng tại vị trí biên nhân vật 
 					x_pos_ -= width_frame_ + 1;  // trở về vị trí có thể đứng được
 					x_val_ = 0;
+					
 				}
 			}
 		}
@@ -366,18 +372,21 @@ void MainPlayerObject::CheckToMap(Map& map_data)
 				map_data.tile[y1][x1] = 0;
 				map_data.tile[y2][x1] = 0;
 				IncreaseMoney();
+				
 			}
 			else if (val1 == BOSS_EGG || val2 == BOSS_EGG)
 			{
 				map_data.tile[y1][x1] = 0;
 				map_data.tile[y2][x1] = 0;
 				IncreaseEgg();
+				
 			}
 			else if (val1 == RED_DIAMOND || val2 == RED_DIAMOND)//check va chạm của nvat chính và kcuong đỏ
 			{
-				map_data.tile[y1][x2] = 0;
-				map_data.tile[y2][x2] = 0;//xóa đi thay bằng ô trống
+				map_data.tile[y1][x1] = 0;
+				map_data.tile[y2][x1] = 0;//xóa đi thay bằng ô trống
 				IncreaseRedDiamond();//cộng dồn 1
+				
 			}
 			else
 			{
@@ -385,9 +394,11 @@ void MainPlayerObject::CheckToMap(Map& map_data)
 				{
 					x_pos_ = (x1 + 1) * TILE_SIZE;
 					x_val_ = 0;
+					
 				}
 			}
 		}
+
 	}
 
 	//Check chiều dọc
@@ -397,6 +408,8 @@ void MainPlayerObject::CheckToMap(Map& map_data)
 
 	y1 = (y_pos_ + y_val_) / TILE_SIZE;
 	y2 = (y_pos_ + y_val_ + height_frame_ - 1) / TILE_SIZE;
+
+	
 
 	if (x1 >= 0 && x2 < MAX_MAP_X && y1 >= 0 && y2 < MAX_MAP_Y)
 		//x1,y1 có trong bản đồ không
@@ -412,6 +425,7 @@ void MainPlayerObject::CheckToMap(Map& map_data)
 				map_data.tile[y2][x1] = 0;
 				map_data.tile[y2][x2] = 0;
 				IncreaseMoney();
+				
 			}
 			else if (val1 == BOSS_EGG || val2 == BOSS_EGG)
 			{
@@ -421,9 +435,10 @@ void MainPlayerObject::CheckToMap(Map& map_data)
 			}
 			else if (val1 == RED_DIAMOND || val2 == RED_DIAMOND)//check va chạm của nvat chính và kcuong đỏ
 			{
-				map_data.tile[y1][x2] = 0;
+				map_data.tile[y2][x1] = 0;
 				map_data.tile[y2][x2] = 0;//xóa đi thay bằng ô trống
 				IncreaseRedDiamond();//cộng dồn 1
+				
 			}
 			else
 			{
@@ -437,6 +452,7 @@ void MainPlayerObject::CheckToMap(Map& map_data)
 					{
 						status_ = WALK_RIGHT;
 					}
+					
 				}
 			}
 		}
@@ -449,18 +465,21 @@ void MainPlayerObject::CheckToMap(Map& map_data)
 				map_data.tile[y1][x1] = 0;
 				map_data.tile[y1][x2] = 0;
 				IncreaseMoney();
+			
 			}
 			else if (val1 == BOSS_EGG || val2 == BOSS_EGG)
 			{
 				map_data.tile[y1][x1] = 0;
 				map_data.tile[y1][x2] = 0;
 				IncreaseEgg();
+				
 			}
 			else if (val1 == RED_DIAMOND || val2 == RED_DIAMOND)//check va chạm của nvat chính và kcuong đỏ
 			{
-				map_data.tile[y1][x2] = 0;
-				map_data.tile[y2][x2] = 0;//xóa đi thay bằng ô trống
+				map_data.tile[y1][x1] = 0;
+				map_data.tile[y1][x2] = 0;//xóa đi thay bằng ô trống
 				IncreaseRedDiamond();//cộng dồn 1
+			
 			}
 			else
 			{
@@ -468,12 +487,13 @@ void MainPlayerObject::CheckToMap(Map& map_data)
 				{
 					y_pos_ = (y1 + 1) * TILE_SIZE;
 					y_val_ = 0;
+					
 				}
 			}
 		}
 	}
 
-
+	
 	//Nếu không va chạm
 	x_pos_ += x_val_;
 	y_pos_ += y_val_;

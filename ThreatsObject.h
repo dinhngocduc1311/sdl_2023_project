@@ -4,6 +4,9 @@
 #include "CommonFunc.h"
 #include "BaseObject.h"
 #include "BulletObject.h"
+
+
+
 #define THREAT_GRAVITY_SPEED 0.8
 #define THREAT_FRAME_NUM 8
 #define THREAT_MAX_FALL_SPEED 10
@@ -51,9 +54,9 @@ public:
 		map_y_ = mp_y;
 	}//set map 
 
-	void set_clips();
-	bool LoadImg(std::string path, SDL_Renderer* screen);
-	void Show(SDL_Renderer* des);
+	void set_clips();//xử lý animation, tạo hiệu ứng clip
+	bool LoadImg(std::string path, SDL_Renderer* screen);//thông số riêng kích thước ảnh
+	void Show(SDL_Renderer* des);//show theo từng frame, tăng dần frame nhân vật 
 	int get_width_frame() const
 	{
 		return width_frame_;
@@ -63,8 +66,8 @@ public:
 		return height_frame_;
 	}
 	void DoPlayer(Map& gMap);//xử lí quái di chuyển 
-	void CheckToMap(Map& gMap);
-	void InitThreats();
+	void CheckToMap(Map& gMap);//check va chạm giữa threat và map
+	void InitThreats();//khi threat rơi xuống vực 
 	void set_type_move(const int& typeMove)
 	{
 		type_move_ = typeMove;
@@ -79,7 +82,7 @@ public:
 		input_type_.left_ = ipLeft;
 	}
 	void ImpMoveType(SDL_Renderer* screen);//Hàm xử lí vấn đề di chuyển trong phạm vi a b
-	SDL_Rect GetRectFrame();
+	SDL_Rect GetRectFrame();//set rect frame cho threat
 
 	std::vector<BulletObject*> get_bullet_list() const
 	{
@@ -91,8 +94,8 @@ public:
 		bullet_list_ = bl_list;
 	}//sử dụng cho xử lí va chạm
 	void InitBullet(BulletObject* p_bullet, SDL_Renderer* screen);//thông số của đạn
-	void MakeBullet(SDL_Renderer* screen, const int& x_limit, const int& y_limit);
-	void RemoveBullet(const int& idx);
+	void MakeBullet(SDL_Renderer* screen, const int& x_limit, const int& y_limit);//kiểm tra đạn
+	void RemoveBullet(const int& idx);//xóa đạn
 	
 	
 private:
@@ -105,7 +108,7 @@ private:
 	float y_pos_;//vị trí đang là bao nhiêu
 	bool on_ground_;
 	int come_back_time_;
-	SDL_Rect frame_clip_[THREAT_FRAME_NUM];//
+	SDL_Rect frame_clip_[THREAT_FRAME_NUM];	
 	int width_frame_;//frame kích thước bao nhiêu
 	int height_frame_;
 	int frame_;//quản lý chỉ số frame

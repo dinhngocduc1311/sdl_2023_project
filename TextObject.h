@@ -20,8 +20,8 @@ public:
 	};
 
 	
-	bool LoadFromRenderText(TTF_Font* font, SDL_Renderer* screen);//
-	void Free();
+	bool LoadFromRenderText(TTF_Font* font, SDL_Renderer* screen);//load text lên màn hình
+	void Free();//giải phóng
 
 	void SetColor(Uint8 red, Uint8 green, Uint8 blue);//set mã màu khác 3 màu đã có
 	void SetColor(int type);//set màu cơ bản

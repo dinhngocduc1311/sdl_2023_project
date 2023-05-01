@@ -16,8 +16,8 @@ public:
 		number_ = num;
 	}
 	void AddPos(const int& xPos);
-	void Show(SDL_Renderer* screen);
-	void Init(SDL_Renderer* screen);
+	void Show(SDL_Renderer* screen);//show ảnh ra
+	void Init(SDL_Renderer* screen);//hàm load tấm ảnh
 	
 	void Decrease();//hàm giảm mạng xuống
 

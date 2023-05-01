@@ -18,8 +18,8 @@ public:
 	{
 		frame_ = fr;
 	}
-	virtual bool LoadImg(std::string path, SDL_Renderer* screen);
-	void Show(SDL_Renderer* screen);
+	virtual bool LoadImg(std::string path, SDL_Renderer* screen);//load ảnh rồi thêm vào màn hình
+	void Show(SDL_Renderer* screen);//show ảnh
 	int get_frame_width() const
 	{
 		return frame_width_;
